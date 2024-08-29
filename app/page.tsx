@@ -1,39 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
-
-interface FormData {
-   firstname: string;
-   lastname: string;
-   sex: string;
-   age: string;
-   address: string;
-}
+import React, { useContext, useState } from 'react';
+import { PersonDetailsProvider } from './components/context/personContext';
+import { useAccount } from 'wagmi';
+import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 
 const FormComponent: React.FC = () => {
-   const [formData, setFormData] = useState<FormData>({
-      firstname: '',
-      lastname: '',
-      sex: '',
-      age: '',
-      address: '',
-   });
+   const { address, chainId, isConnected } = useWeb3ModalAccount();
 
-   const handleChange = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-   ) => {
-      const { name, value } = e.target;
-      setFormData({
-         ...formData,
-         [name]: value,
-      });
-   };
+   console.log({ address, chainId, isConnected });
 
-   const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      alert('Form submitted');
-      console.log('Submitted Data:', formData);
-   };
+   const {
+      handleChange,
+      formData,
+      setFormData,
+      handleSubmit,
+      allPersons,
+   } = useContext(PersonDetailsProvider);
+
+   console.log(allPersons.length);
 
    const handleUpdate = () => {
       alert('Form data updated');
@@ -122,22 +107,7 @@ const FormComponent: React.FC = () => {
                   className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                />
             </div>
-            <div className="mb-4">
-               <label
-                  htmlFor="address"
-                  className="block text-sm font-medium text-gray-700"
-               >
-                  Address
-               </label>
-               <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-               />
-            </div>
+
             <div className="flex space-x-4">
                <button
                   type="submit"
@@ -145,7 +115,7 @@ const FormComponent: React.FC = () => {
                >
                   Submit
                </button>
-               <button
+               {/* <button
                   type="button"
                   onClick={handleUpdate}
                   className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600"
@@ -158,7 +128,7 @@ const FormComponent: React.FC = () => {
                   className="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600"
                >
                   Delete
-               </button>
+               </button> */}
             </div>
          </form>
       </div>

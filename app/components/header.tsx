@@ -3,10 +3,9 @@
 import Link from 'next/link';
 // import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
+import { PersonDetailsProvider } from './context/personContext';
 
 const Header = () => {
-   // const { connectWallet, connect } = useContext(MinningContext);
-
    return (
       <main className="w-full flex justify-between items-center fixed top-0  bg-opacity-10 backdrop-blur-md shadow-lg h-16 z-20">
          <div className="flex w-full p-4 justify-between items-center  shadow-custom">
@@ -23,7 +22,6 @@ const Header = () => {
                </div>
             </div>
          </div>
-         <div>Hello</div>
       </main>
    );
 };
